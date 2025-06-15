@@ -1,6 +1,8 @@
-const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
+app.use(cors());
 const bodyParser = require('body-parser');
+const express = require('express');
 const app = express();
 const webhookURL = process.env.WEBHOOKURL
 
@@ -41,4 +43,7 @@ app.post('/sendMessage', (req, res) => {
 })
 
 
-app.listen(process.env.PORT || 8080); 
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
