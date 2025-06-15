@@ -1,6 +1,5 @@
 require('dotenv').config();
 const cors = require('cors');
-app.use(cors());
 const bodyParser = require('body-parser');
 const express = require('express');
 const app = express();
@@ -13,6 +12,8 @@ function isUUIDv4(str) {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+
+app.use(cors());
 
 app.post('/sendMessage', (req, res) => {
     const userId = req.body.userId
