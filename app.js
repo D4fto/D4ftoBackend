@@ -23,14 +23,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 const analyticsLimiter = rateLimit({
-  windowMs: 60 * 1000, 
-  max: 5, 
+  windowMs: 1 * 1000, 
+  max: 1, 
   standardHeaders: true,
   legacyHeaders: false,
 });
 
 
-const sentUsers = new Set();
+
 
 
 app.post('/sendMessage', analyticsLimiter, async (req, res) => {
@@ -41,11 +41,8 @@ app.post('/sendMessage', analyticsLimiter, async (req, res) => {
   }
 
  
-  if (sentUsers.has(userId)) {
-    return res.status(200).send('Já registrado');
-  }
 
-  sentUsers.add(userId);
+
 
   
   res.status(200).send('Recebido');
