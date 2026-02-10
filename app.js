@@ -7,6 +7,9 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const webhookURL = process.env.WEBHOOKURL;
 
+app.set('trust proxy', 1);
+
+
 
 function isUUIDv4(str) {
   const regex =
@@ -47,9 +50,9 @@ app.post('/sendMessage', analyticsLimiter, async (req, res) => {
   
   res.status(200).send('Recebido');
 
-  
   try {
-    await fetch(webhookURL, {
+    console.log("enivando")
+    const response = await fetch(webhookURL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -59,6 +62,7 @@ app.post('/sendMessage', analyticsLimiter, async (req, res) => {
 ----------------------------------`,
       }),
     });
+    console.log(response)
   } catch (err) {
     console.error('Erro no webhook:', err.message);
   }
